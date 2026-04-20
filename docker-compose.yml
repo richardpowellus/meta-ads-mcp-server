@@ -1,0 +1,6 @@
+services:
+  meta-ads-mcp:
+    build: .
+    environment:
+      - META_ADS_ACCESS_TOKEN=${META_ADS_ACCESS_TOKEN}
+    stdin_open: true

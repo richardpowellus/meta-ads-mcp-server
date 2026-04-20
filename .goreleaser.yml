@@ -1,0 +1,53 @@
+version: 2
+
+builds:
+  - main: ./cmd/meta-ads-mcp-server
+    binary: meta-ads-mcp-server
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w -X github.com/richardpowellus/meta-ads-mcp-server/internal/version.Version={{.Version}}
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    format_overrides:
+      - goos: windows
+        format: zip
+
+dockers:
+  - image_templates:
+      - "ghcr.io/richardpowellus/meta-ads-mcp-server:{{ .Version }}"
+      - "ghcr.io/richardpowellus/meta-ads-mcp-server:latest"
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.source=https://github.com/richardpowellus/meta-ads-mcp-server"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+    use: buildx
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+
+checksum:
+  name_template: "checksums.txt"
+
+release:
+  github:
+    owner: richardpowellus
+    name: meta-ads-mcp-server

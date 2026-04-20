@@ -1,0 +1,58 @@
+name: Bug Report
+description: Report a bug in the Meta Ads MCP server
+labels: [bug]
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: Tool Name
+      description: Which MCP tool were you using?
+      placeholder: e.g. search_ad_library, create_campaign
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened? Include any error messages.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: input
+    id: api-version
+    attributes:
+      label: Meta Graph API Version
+      description: Which Graph API version?
+      placeholder: "v25.0"
+    validations:
+      required: false
+
+  - type: input
+    id: server-version
+    attributes:
+      label: Server Version
+      description: Output of `meta-ads-mcp-server --version` or the Docker tag
+      placeholder: e.g. v0.1.0
+    validations:
+      required: false

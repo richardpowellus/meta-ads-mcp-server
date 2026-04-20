@@ -1,0 +1,19 @@
+{
+  "name": "meta-ads-mcp-server",
+  "description": "A Go MCP server for the Meta Ads (Facebook/Instagram) Marketing API — tools for campaigns, ad sets, ads, creatives, audiences, insights, Ad Library, brand safety, and more.",
+  "version": "0.1.0",
+  "author": "Richard Powell",
+  "license": "MIT",
+  "repository": "https://github.com/richardpowellus/meta-ads-mcp-server",
+  "categories": ["advertising", "social-media", "marketing"],
+  "install": {
+    "go": "go install github.com/richardpowellus/meta-ads-mcp-server/cmd/meta-ads-mcp-server@latest",
+    "docker": "docker pull ghcr.io/richardpowellus/meta-ads-mcp-server"
+  },
+  "config": {
+    "command": "meta-ads-mcp-server",
+    "env": {
+      "META_ADS_ACCESS_TOKEN": "your-access-token"
+    }
+  }
+}
