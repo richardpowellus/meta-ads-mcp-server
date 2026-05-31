@@ -72,7 +72,7 @@ func RegisterAccounts(s mcp.ToolRegistrar, cfg *metaads.Config) {
 				"account":       {Type: "string", Description: "Account name."},
 				"ad_account_id": {Type: "string", Description: "Ad account ID (overrides default)."},
 				"name":          {Type: "string", Description: "New account name."},
-				"spend_cap":     {Type: "string", Description: "Spend cap in account currency (in cents)."},
+				"spend_cap":     {Type: "string", Description: "Spend cap in ACCOUNT CURRENCY (dollars for USD accounts), NOT cents. Meta's API multiplies this value by 100 to store cents. Example: '1000' for $1,000."},
 			},
 			Required: []string{"account"},
 		},
@@ -179,13 +179,13 @@ func RegisterAccounts(s mcp.ToolRegistrar, cfg *metaads.Config) {
 	// ── set_account_spend_cap ──────────────────────────────────────────
 	s.RegisterTool(mcp.Tool{
 		Name:        "set_account_spend_cap",
-		Description: "Set the account-level spend cap (in cents in account currency). Set to 0 to remove.",
+		Description: "Set the account-level spend cap. Value is in ACCOUNT CURRENCY (dollars for USD accounts) — NOT cents, despite what earlier versions of this description claimed. Meta's Marketing API multiplies this value by 100 when storing. Example: pass '1000' to set a $1,000 cap (stored as 100000 cents). Set to '0' to remove the cap. Note: GET responses (get_ad_account) return spend_cap in cents — read cents, write dollars.",
 		InputSchema: mcp.InputSchema{
 			Type: "object",
 			Properties: map[string]mcp.PropertySchema{
 				"account":       {Type: "string", Description: "Account name."},
 				"ad_account_id": {Type: "string", Description: "Ad account ID (overrides default)."},
-				"spend_cap":     {Type: "string", Description: "Spend cap amount in cents (e.g. '100000' for $1000). '0' removes the cap."},
+				"spend_cap":     {Type: "string", Description: "Spend cap amount in ACCOUNT CURRENCY (dollars for USD accounts), NOT cents. Meta's API multiplies this value by 100 to store cents. Example: '1000' for $1,000 cap. '0' removes the cap."},
 			},
 			Required: []string{"account", "spend_cap"},
 		},
